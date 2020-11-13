@@ -14,6 +14,10 @@ class Helper {
         this.list[index].setAttribute("class", "cell min");
     }
 
+    // _markCell = async () => {
+    //     this.
+    // }
+
     _unmark = async (index) => {
         this.list[index].setAttribute("class", "cell");
     }

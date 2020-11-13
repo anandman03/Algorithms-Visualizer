@@ -12,6 +12,17 @@ footer {
     margin-top: auto;
     text-align: center;
 }
+table {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid #000;
+    cursor: pointer;
+}
 .link {
     text-decoration: none;
     font-weight: bold;
@@ -27,11 +38,11 @@ footer {
 .array {
     display: flex;
     align-items: flex-start;
-    min-height: 218px;
-    height: 50vh;
+    /* min-height: 218px; */
+    min-height: 70vh;
+    height: 40vh;
     padding: 1rem;
     flex-direction: row;
-    color: red;
 }
 .cell {
     display: flex;
@@ -89,6 +100,7 @@ footer {
     outline: none;
     cursor: pointer;
     color: #ccd6f6;
+    font-weight: bold;
     padding: 13px 13px;
     text-decoration: none;
 }
@@ -127,3 +139,4 @@ footer {
         text-align: center;
     }
 }
+

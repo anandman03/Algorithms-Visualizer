@@ -12,7 +12,16 @@ const start = async () => {
         return;
     }
 
-    const algorithm = new Algorithms(speedValue);
+    let algorithm = null;
+    if(algoValue <= 6) {
+        const list = document.querySelectorAll(".cell");
+        algorithm = new sortAlgorithms(speedValue, list, list.length);
+    }
+    else {
+        const grid = document.querySelectorAll(".gcell");
+        // console.log(grid);
+        algorithm = new gridAlgorithms(grid);
+    }
 
     if(algoValue === 1) {
         await algorithm._BubbleSort();
@@ -32,9 +41,22 @@ const start = async () => {
     if(algoValue === 6) {
         await algorithm._HeapSort();
     }
+    if(algoValue === 7) {
+        await algorithm._BFS();
+    }
 };
 
-const Render = async () => {
+const RenderScreen = async () => {
+    let algoValue = Number(document.querySelector(".algo-menu").value);
+    if(algoValue <= 6) {
+        await RenderList();
+    }
+    else {
+        await RenderGrid();
+    }
+}
+
+const RenderList = async () => {
     let sizeValue = Number(document.querySelector(".size-menu").value);
 
     if(sizeValue === 0) {
@@ -54,6 +76,30 @@ const Render = async () => {
     }
 };
 
+const RenderGrid = async () => {
+    await clearScreen();
+
+    const region = document.querySelector(".array");
+    const table  = document.createElement("table");
+    table.className = "grid";
+    const ROWSIZE = 20;
+    const COLSIZE = 30;
+
+    for(let row = 0 ; row < ROWSIZE ; ++row)
+    {
+        let tableRow = document.createElement("tr");
+        for(let col = 0 ; col < COLSIZE ; ++col)
+        {
+            let tableData = document.createElement("td");
+            tableData.className = "gcell";
+            tableData.setAttribute("value", `${row},${col}`);
+            tableRow.appendChild(tableData);
+        }
+        table.appendChild(tableRow);
+    }
+    region.appendChild(table);
+};
+
 const randomList = async (Length) => {
     let list = new Array();
     let lowerBound = 1;
@@ -64,11 +110,11 @@ const randomList = async (Length) => {
         list.push(parseInt(randomNumber));
     }
     return list;
-}
+};
 
 const clearScreen = async () => {
     document.querySelector(".array").innerHTML = "";
-}
+};
 
 const response = () => {
     let Navbar = document.querySelector(".navbar");
@@ -84,6 +130,8 @@ document.querySelector(".icon").addEventListener("click", response);
 
 document.querySelector(".start").addEventListener("click", start);
 
-document.querySelector(".size-menu").addEventListener("change", Render);
+document.querySelector(".size-menu").addEventListener("change", RenderScreen);
 
-window.onload = Render;
+document.querySelector(".algo-menu").addEventListener("change", RenderScreen);
+
+window.onload = RenderScreen;

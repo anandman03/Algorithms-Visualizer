@@ -1,10 +1,10 @@
 "use strict";
 
-class Algorithms {
-    constructor(time) {
+class sortAlgorithms {
+    constructor(time, list, size) {
         this.time = time;
-        this.list = document.querySelectorAll(".cell");
-        this.size = this.list.length;
+        this.list = list;
+        this.size = size;
         this.help = new Helper(this.time, this.list);
     }
 
