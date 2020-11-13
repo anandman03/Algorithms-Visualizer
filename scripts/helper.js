@@ -1,9 +1,10 @@
 "use strict";
 
 class Helper {
-    constructor(time, list) {
+    constructor(time, list, grid = []) {
         this.time = parseInt(450/time);
         this.list = list;
+        this.grid = grid;
     }
 
     _mark = async (index) => {
@@ -13,10 +14,6 @@ class Helper {
     _markSpl = async (index) => {
         this.list[index].setAttribute("class", "cell min");
     }
-
-    // _markCell = async () => {
-    //     this.
-    // }
 
     _unmark = async (index) => {
         this.list[index].setAttribute("class", "cell");

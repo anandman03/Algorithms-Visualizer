@@ -19,7 +19,6 @@ const start = async () => {
     }
     else {
         const grid = document.querySelectorAll(".gcell");
-        // console.log(grid);
         algorithm = new gridAlgorithms(grid);
     }
 
@@ -53,6 +52,7 @@ const RenderScreen = async () => {
     }
     else {
         await RenderGrid();
+        document.querySelectorAll("td").forEach(cell => cell.addEventListener("click", markBlock));
     }
 }
 
