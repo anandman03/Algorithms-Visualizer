@@ -91,7 +91,15 @@ const RenderGrid = async () => {
         for(let col = 0 ; col < COLSIZE ; ++col)
         {
             let tableData = document.createElement("td");
-            tableData.className = "gcell";
+            if(row == 0 && col == 0) {
+                tableData.className = "gcell src";
+            }
+            else if(row == ROWSIZE-1 && col == COLSIZE-1) {
+                tableData.className = "gcell dest";
+            }
+            else {
+                tableData.className = "gcell";
+            }
             tableData.setAttribute("value", `${row},${col}`);
             tableRow.appendChild(tableData);
         }

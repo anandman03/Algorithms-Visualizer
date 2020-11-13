@@ -24,6 +24,12 @@ table {
     background-color: #D2D2D2;
     transition: all .4s ease-in;
 }
+.gcell.src {
+    background-color: #ff0000;
+}
+.gcell.dest {
+    background-color: #00ff00;
+}
 .gcell.blocked {
     background-color: #000;
     transition: all .4s ease-in;
