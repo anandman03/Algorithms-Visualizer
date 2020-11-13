@@ -83,7 +83,7 @@ const RenderGrid = async () => {
     const table  = document.createElement("table");
     table.className = "grid";
     const ROWSIZE = 20;
-    const COLSIZE = 30;
+    const COLSIZE = 18;
 
     for(let row = 0 ; row < ROWSIZE ; ++row)
     {
