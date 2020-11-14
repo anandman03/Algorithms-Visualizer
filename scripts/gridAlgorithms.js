@@ -34,6 +34,36 @@ class gridAlgorithms {
         }
     }
 
+    // DEPTH FIRST SEARCH
+    _DFS = async () => {
+        let path = [];
+        await this._DFSHelper(0, 0, path);
+    }
+
+    _DFSHelper = async (x, y, path) => {
+        if(x == this.ROW-1 && y == this.COL-1) {
+            await this._MarkPath(path);
+            throw new Error("Found!");
+            return;
+        }
+        this.visited[x][y] = true;
+
+        for(let itr = 0 ; itr < 4 ; ++itr)
+        {
+            let X = x + this.dx[itr];
+            let Y = y + this.dy[itr];
+            if(await this._SafeMove(X, Y))
+            {
+                await this.help._pause();
+                await this._MarkCurrent(X, Y);
+                
+                path.push([X, Y]);
+                await this._DFSHelper(X, Y, path);
+                path.pop();
+            }
+        }
+    }
+
     // BREADTH FIRST SEARCH
     _BFS = async () => {
         let reached = false;
@@ -91,7 +121,7 @@ class gridAlgorithms {
 
     // Mark the path from src to dest.
     _MarkPath = async (path) => {
-        for(let cell = 0 ; cell < path.length ; ++cell)
+        for(let cell = 0 ; cell < path.length - 1 ; ++cell)
         {
             for(let counter = 0 ; counter < this.grid.length ; ++counter) 
             {
@@ -100,6 +130,7 @@ class gridAlgorithms {
                 const tcol = Number(index[1]);
                 if(trow == path[cell][0] && tcol == path[cell][1])
                 {
+                    await this.help._pause();
                     this.grid[counter].setAttribute("class", "gcell path");
                     break;
                 }

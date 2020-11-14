@@ -39,6 +39,9 @@ const start = async () => {
         await algorithm._HeapSort();
     }
     if(algoValue === 7) {
+        await algorithm._DFS();
+    }
+    if(algoValue === 8) {
         await algorithm._BFS();
     }
 };
