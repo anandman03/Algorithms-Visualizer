@@ -44,7 +44,6 @@ class gridAlgorithms {
         if(x == this.ROW-1 && y == this.COL-1) {
             await this._MarkPath(path);
             throw new Error("Found!");
-            return;
         }
         this.visited[x][y] = true;
 
