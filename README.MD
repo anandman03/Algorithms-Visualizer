@@ -1,6 +1,6 @@
 # Sorting Visualizer
 
-[![CodeFactor](https://www.codefactor.io/repository/github/anandman03/sorting-visualizer/badge)](https://www.codefactor.io/repository/github/anandman03/sorting-visualizer)
+[![CodeFactor](https://www.codefactor.io/repository/github/anandman03/algorithms-visualizer/badge)](https://www.codefactor.io/repository/github/anandman03/algorithms-visualizer)
 [![DeepScan grade](https://deepscan.io/api/teams/10851/projects/14634/branches/277093/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=10851&pid=14634&bid=277093)
 
 This is a progressive web app built using Vanilla Javascript to visualize classic sorting algorithms such as bubble, insertion, selection, merge, quick and heap sort. This app is deployed with GitHub pages and can be accessed here: [Link](https://anandman03.github.io/Sorting-Visualizer/). I hope you have fun playing around with it.
