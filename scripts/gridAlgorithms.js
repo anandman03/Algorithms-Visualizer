@@ -78,7 +78,7 @@ class gridAlgorithms {
             queue.shift();
 
             if(cell[0] != 0 && cell[1] != 0) {
-                await this._markVisited(cell[0], cell[1]);
+                await this._MarkVisited(cell[0], cell[1]);
             }
 
             for(let counter = 0 ; counter < this.dx.length ; ++counter)
@@ -138,7 +138,7 @@ class gridAlgorithms {
     }
 
     // Mark grid cell as visited cell.
-    _markVisited = async (row, col) => {
+    _MarkVisited = async (row, col) => {
         for(let counter = 0 ; counter < this.grid.length ; ++counter) 
         {
             const index = this.grid[counter].getAttribute("value").split(",");
