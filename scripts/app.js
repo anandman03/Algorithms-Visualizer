@@ -14,12 +14,10 @@ const start = async () => {
 
     let algorithm = null;
     if(algoValue <= 6) {
-        const list = document.querySelectorAll(".cell");
-        algorithm = new sortAlgorithms(speedValue, list, list.length);
+        algorithm = new sortAlgorithms(speedValue);
     }
     else {
-        const grid = document.querySelectorAll(".gcell");
-        algorithm = new gridAlgorithms(grid);
+        algorithm = new gridAlgorithms(speedValue);
     }
 
     if(algoValue === 1) {

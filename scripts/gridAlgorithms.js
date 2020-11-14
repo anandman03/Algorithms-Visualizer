@@ -1,23 +1,119 @@
 "use strict";
 
 class gridAlgorithms {
-    constructor(grid) {
-        this.grid = grid;
+    constructor(time) {
+        this.grid = document.querySelectorAll(".gcell");
         this.ROW = 20;
         this.COL = 18;
-        this.list = new Array(this.ROW);
-        for(let counter = 0 ; counter < this.ROW ; ++counter) {
-            this.list[counter] = new Array(this.COL);
+        this.dx = [1, -1, 0, 0];
+        this.dy = [0, 0, 1, -1];
+        this.time = time;
+        this.help = new Helper(this.time);
+
+        this.visited = new Array(this.ROW);
+        for(let row = 0 ; row < this.ROW ; ++row) {
+            this.visited[row] = new Array(this.COL);
+        }
+        this._init();
+    }
+
+    // Initialising the current state of grid.
+    _init = () => {
+        for(let row = 0 ; row < this.ROW ; ++row) {
+            for(let col = 0 ; col < this.COL ; ++col) {
+                this.visited[row][col] = false;
+            }
+        }
+        for(let inc = 0 ; inc < this.grid.length ; ++inc) 
+        {
+            if(this.grid[inc].getAttribute("class") == "gcell blocked")
+            {
+                const cell = this.grid[inc].getAttribute("value").split(",");
+                this.visited[Number(cell[0])][Number(cell[1])] = true;
+            }
         }
     }
 
+    // BREADTH FIRST SEARCH
     _BFS = async () => {
-        console.log("BFS");
+        let queue = new Array();
+        queue.push([0, 0]);
+        this.visited[0][0] = true;
+        let reached = false;
+
+        while(queue.length)
+        {
+            let currCell = queue[0];
+            queue.shift();
+
+            if(currCell[0] != 0 && currCell[1] != 0) {
+                await this._markVisited(currCell[0], currCell[1]);
+            }
+
+            for(let counter = 0 ; counter < this.dx.length ; ++counter)
+            {
+                let X = Number(this.dx[counter]) + Number(currCell[0]);
+                let Y = Number(this.dy[counter]) + Number(currCell[1]);
+                if(this._SafeMove(X, Y))
+                {
+                    if(X == this.ROW-1 && Y == this.COL-1) {
+                        reached = true;
+                        break;
+                    }
+                    queue.push([X, Y]);
+                    this.visited[X][Y] = true;
+
+                    await this.help._pause();
+                    await this._MarkCurrent(X, Y);
+                }
+            }
+            if(reached == true) {
+                break;
+            }
+        }
     }
 
+    // Check if move is safe or not.
+    _SafeMove = (x, y) => {
+        if(x >= 0 && y >= 0 && x < this.ROW && y < this.COL && this.visited[x][y] == false) {
+            return true;
+        }
+        return false;
+    }
+
+    // Block the clicked cell.
     _Block = (row, col) => {
-        this.list[row][col] = -1;
-        console.log(this.list);
+        this.visited[row][col] = true;
+    }
+
+    // Mark grid cell as visited cell.
+    _markVisited = async (row, col) => {
+        for(let counter = 0 ; counter < this.grid.length ; ++counter) 
+        {
+            const index = this.grid[counter].getAttribute("value").split(",");
+            const trow = Number(index[0]);
+            const tcol = Number(index[1]);
+            if(trow == row && tcol == col)
+            {
+                this.grid[counter].setAttribute("class", "gcell visited");
+                break;
+            }
+        }
+    }
+
+    // Mark grid cell as current cell.
+    _MarkCurrent = async (row, col) => {
+        for(let counter = 0 ; counter < this.grid.length ; ++counter) 
+        {
+            const index = this.grid[counter].getAttribute("value").split(",");
+            const trow = Number(index[0]);
+            const tcol = Number(index[1]);
+            if(trow == row && tcol == col)
+            {
+                this.grid[counter].setAttribute("class", "gcell current");
+                break;
+            }
+        }
     }
 };
 

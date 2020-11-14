@@ -35,6 +35,14 @@ table {
     background-color: #000;
     transition: all .4s ease-in;
 }
+.gcell.current {
+    background-color: #50C5B7;
+    transition: all .4s ease-in;
+}
+.gcell.visited {
+    background-color: #6184D8;
+    transition: all .4s ease-in;
+}
 
 td {
     border: 1px solid #000;
