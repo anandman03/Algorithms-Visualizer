@@ -1,10 +1,9 @@
 "use strict";
 
 class Helper {
-    constructor(time, list, grid = []) {
-        this.time = parseInt(450/time);
+    constructor(time, list = []) {
+        this.time = parseInt(400/time);
         this.list = list;
-        this.grid = grid;
     }
 
     _mark = async (index) => {
