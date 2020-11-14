@@ -36,25 +36,27 @@ class gridAlgorithms {
 
     // BREADTH FIRST SEARCH
     _BFS = async () => {
-        let queue = new Array();
-        queue.push([0, 0]);
-        this.visited[0][0] = true;
         let reached = false;
+        let path = [0, 0];
+
+        let queue = new Array();
+        queue.push(path);
+        this.visited[0][0] = true;
 
         while(queue.length)
         {
-            let currCell = queue[0];
+            let cell = queue[0];
             queue.shift();
 
-            if(currCell[0] != 0 && currCell[1] != 0) {
-                await this._markVisited(currCell[0], currCell[1]);
+            if(cell[0] != 0 && cell[1] != 0) {
+                await this._markVisited(cell[0], cell[1]);
             }
 
             for(let counter = 0 ; counter < this.dx.length ; ++counter)
             {
-                let X = Number(this.dx[counter]) + Number(currCell[0]);
-                let Y = Number(this.dy[counter]) + Number(currCell[1]);
-                if(this._SafeMove(X, Y))
+                let X = Number(this.dx[counter]) + Number(cell[0]);
+                let Y = Number(this.dy[counter]) + Number(cell[1]);
+                if(await this._SafeMove(X, Y))
                 {
                     if(X == this.ROW-1 && Y == this.COL-1) {
                         reached = true;
@@ -71,10 +73,11 @@ class gridAlgorithms {
                 break;
             }
         }
+        // await this._MarkPath(p);
     }
 
     // Check if move is safe or not.
-    _SafeMove = (x, y) => {
+    _SafeMove = async (x, y) => {
         if(x >= 0 && y >= 0 && x < this.ROW && y < this.COL && this.visited[x][y] == false) {
             return true;
         }
@@ -84,6 +87,24 @@ class gridAlgorithms {
     // Block the clicked cell.
     _Block = (row, col) => {
         this.visited[row][col] = true;
+    }
+
+    // Mark the path from src to dest.
+    _MarkPath = async (path) => {
+        for(let cell = 0 ; cell < path.length ; ++cell)
+        {
+            for(let counter = 0 ; counter < this.grid.length ; ++counter) 
+            {
+                const index = this.grid[counter].getAttribute("value").split(",");
+                const trow = Number(index[0]);
+                const tcol = Number(index[1]);
+                if(trow == path[cell][0] && tcol == path[cell][1])
+                {
+                    this.grid[counter].setAttribute("class", "gcell path");
+                    break;
+                }
+            }
+        }
     }
 
     // Mark grid cell as visited cell.
