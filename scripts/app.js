@@ -16,8 +16,11 @@ const start = async () => {
     if(algoValue <= 6) {
         algorithm = new sortAlgorithms(speedValue);
     }
-    else {
+    else if(algoValue > 6 && algoValue <= 8) {
         algorithm = new gridAlgorithms(speedValue);
+    }
+    else {
+        algorithm = new searchAlgorithms(speedValue);
     }
 
     if(algoValue === 1) {
@@ -44,6 +47,12 @@ const start = async () => {
     if(algoValue === 8) {
         await algorithm._BFS();
     }
+    if(algoValue === 9) {
+        await algorithm._LinearSearch();
+    }
+    if(algoValue === 10) {
+        await algorithm._BinarySearch();
+    }
 };
 
 const RenderScreen = async () => {
@@ -51,9 +60,13 @@ const RenderScreen = async () => {
     if(algoValue <= 6) {
         await RenderList();
     }
-    else {
+    else if(algoValue <= 8) {
         await RenderGrid();
         document.querySelectorAll("td").forEach(cell => cell.addEventListener("click", markBlock));
+    }
+    else {
+        await RenderArray(false);
+        if(algoValue == 10) await RenderArray(true);
     }
 }
 
@@ -76,6 +89,31 @@ const RenderList = async () => {
         arrayNode.appendChild(node);
     }
 };
+
+const RenderArray = async (sorted) => {
+    let sizeValue = Number(document.querySelector(".size-menu").value);
+
+    if(sizeValue === 0) {
+        sizeValue = 30;
+    }
+    await clearScreen();
+
+    let list = await randomList(sizeValue);
+    if(sorted) list.sort((a, b) => a - b);
+
+    const arrayNode = document.querySelector('.array');
+    const Wrapper = document.createElement('div'); 
+    Wrapper.className = 's-array';
+
+    for(const element of list)
+    {
+        const node = document.createElement('div');
+        node.className = 's-cell';
+        node.innerText = element;
+        Wrapper.appendChild(node);
+    }
+    arrayNode.appendChild(Wrapper);
+}
 
 const RenderGrid = async () => {
     await clearScreen();
