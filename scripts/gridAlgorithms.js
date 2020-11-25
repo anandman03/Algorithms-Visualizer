@@ -42,7 +42,7 @@ class gridAlgorithms {
 
     _DFSHelper = async (x, y, path) => {
         if(x == this.ROW-1 && y == this.COL-1) {
-            await this._MarkPath(path);
+            await this._path(path);
             throw new Error("Found!");
         }
         this.visited[x][y] = true;
@@ -54,7 +54,7 @@ class gridAlgorithms {
             if(await this._SafeMove(X, Y))
             {
                 await this.help._pause();
-                await this._MarkCurrent(X, Y);
+                await this._current(X, Y);
                 
                 path.push([X, Y]);
                 await this._DFSHelper(X, Y, path);
@@ -78,7 +78,7 @@ class gridAlgorithms {
             queue.shift();
 
             if(cell[0] != 0 && cell[1] != 0) {
-                await this._MarkVisited(cell[0], cell[1]);
+                await this._visited(cell[0], cell[1]);
             }
 
             for(let counter = 0 ; counter < this.dx.length ; ++counter)
@@ -95,7 +95,7 @@ class gridAlgorithms {
                     this.visited[X][Y] = true;
 
                     await this.help._pause();
-                    await this._MarkCurrent(X, Y);
+                    await this._current(X, Y);
                 }
             }
             if(reached == true) {
@@ -114,12 +114,12 @@ class gridAlgorithms {
     }
 
     // Block the clicked cell.
-    _Block = (row, col) => {
+    _block = (row, col) => {
         this.visited[row][col] = true;
     }
 
     // Mark the path from src to dest.
-    _MarkPath = async (path) => {
+    _path = async (path) => {
         for(let cell = 0 ; cell < path.length - 1 ; ++cell)
         {
             for(let counter = 0 ; counter < this.grid.length ; ++counter) 
@@ -138,7 +138,7 @@ class gridAlgorithms {
     }
 
     // Mark grid cell as visited cell.
-    _MarkVisited = async (row, col) => {
+    _visited = async (row, col) => {
         for(let counter = 0 ; counter < this.grid.length ; ++counter) 
         {
             const index = this.grid[counter].getAttribute("value").split(",");
@@ -153,7 +153,7 @@ class gridAlgorithms {
     }
 
     // Mark grid cell as current cell.
-    _MarkCurrent = async (row, col) => {
+    _current = async (row, col) => {
         for(let counter = 0 ; counter < this.grid.length ; ++counter) 
         {
             const index = this.grid[counter].getAttribute("value").split(",");
@@ -179,7 +179,7 @@ const markBlock = (cell) => {
     }
     
     const mainAlgo = new gridAlgorithms();
-    mainAlgo._Block(row, col);
+    mainAlgo._block(row, col);
 
     cell.target.setAttribute("class", "gcell blocked");
 }

@@ -8,7 +8,7 @@ This is a progressive web app built using Vanilla Javascript to visualize classi
 
 ## Purpose
 
-I wanted to improve my skills with HTML, CSS, JavaScript and also learn classic sorting algorithms.This project turned out to be a great way to achieve both of the aforementioned objectives at the same time.
+I wanted to improve my skills with HTML, CSS, JavaScript and also learn classic algorithms.This project turned out to be a great way to achieve both of the aforementioned objectives at the same time.
 
 ## Conventions
 
